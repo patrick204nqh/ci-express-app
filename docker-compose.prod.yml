@@ -1,0 +1,34 @@
+version: "3.9"
+
+x-networks: &networks
+  networks:
+    - dockernet
+
+x-environment: &environment
+  env_file:
+    - .env
+
+services:
+  app:
+    container_name: app
+    image: patrick204nqh/ci-express-node:latest
+    build:
+      context: .
+      dockerfile: docker/node/dockerfile.dev
+    restart: unless-stopped
+    tty: true
+    ports:
+      - '8080:8080'
+    <<: *environment
+    <<: *networks
+
+  # nginx:
+  #   build:
+  #     context: .
+  #     dockerfile: docker/nginx/dockerfile.dev
+  #   image: patrick204nqh/ci-express-nginx:latest
+  #   <<: *networks
+
+networks:
+  dockernet:
+    driver: bridge
