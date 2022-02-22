@@ -2,9 +2,10 @@ FROM node:16
 
 WORKDIR /var/www
 
-COPY package*.json .
+COPY package.json .
+COPY yarn.lock .
 
-RUN npm install
+RUN yarn install
 
 COPY . .
 

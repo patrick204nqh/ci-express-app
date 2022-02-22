@@ -12,5 +12,7 @@ app.get('/', (req, res) => {
   res.send('Hello Robert');
 });
 
+app.get('/api/v1', (req, res) => res.json({hello: 'world'}));
+
 app.listen(PORT, HOST);
 console.log(`Running on http://${HOST}:${PORT}`);

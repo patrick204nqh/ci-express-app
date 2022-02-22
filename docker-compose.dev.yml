@@ -11,7 +11,7 @@ x-environment: &environment
 services:
   app:
     container_name: app
-    image: patrick204nqh/ci-express-node:latest
+    image: patrick204nqh/ci-express-app:latest
     build:
       context: .
       dockerfile: docker/node/dockerfile.dev
