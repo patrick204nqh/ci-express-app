@@ -38,6 +38,7 @@ module.exports = buildSchema(`
 
   type Post {
     id: ID
+    userId: ID
     title: String
     body: String
   }
