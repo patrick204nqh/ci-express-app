@@ -1,26 +1,33 @@
 import React from "react";
-import { client } from "./graphql/client";
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { ApolloProvider } from '@apollo/client';
+import { client } from "./graphql/client";
 
 import Box from '@mui/material/Grid';
 import Container from '@mui/material/Grid';
 import Navbar from "./components/Navbar/Navbar";
-import Posts from "./components/Posts/Posts";
+import Home from "./components/Pages/Home";
+import Blog from "./components/Pages/Blog";
 
 const App = () => {
   return (
-    <ApolloProvider client={client}>
-      <Box
-        display="flex"
-        alignItems="center"
-        justifyContent="center"
-      >
-        <Container maxWidth="xl">
-          <Navbar />
-          <Posts />
-        </Container>
-      </Box>
-    </ApolloProvider>
+    <Router>
+      <ApolloProvider client={client}>
+        <Box
+          display="flex"
+          alignItems="center"
+          justifyContent="center"
+        >
+          <Container width="80%">
+            <Navbar />
+            <Routes>
+              <Route path="/" element={<Home />} />
+              <Route path="/blogs/" element={<Blog />} />
+          </Routes>
+          </Container>
+        </Box>
+      </ApolloProvider>
+    </Router>
   );
 };
 
