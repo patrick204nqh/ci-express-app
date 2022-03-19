@@ -31,27 +31,28 @@ jobs:
       - name: Setup Docker buildx
         uses: docker/setup-buildx-action@v1.6.0
 
-      - name: Log into registry ghcr.io
+      - name: Log into registry
         if: github.event_name != 'pull_request'
         uses: docker/login-action@v1.14.1
         with:
-          username: ${{ secrets.DOCKERHUB_USERNAME }}
-          password: ${{ secrets.DOCKERHUB_TOKEN }}
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Build and push Backend
         id: build_backend
         uses: docker/build-push-action@v2
         with:
-          context: ./backend/
+          context: ./backend
           file: ./backend/Dockerfile
           push: ${{ github.event_name != 'pull_request' }}
-          tags: docker.io/patrick204nqh/${{ env.REPO_NAME }}-backend:latest
+          tags: ghcr.io/${{ github.actor }}/${{ env.REPO_NAME }}-backend:latest
 
       - name: Build and push Frontend
         id: build_frontend
         uses: docker/build-push-action@v2
         with:
-          context: ./frontend/
+          context: ./frontend
           file: ./frontend/Dockerfile
           push: ${{ github.event_name != 'pull_request' }}
-          tags: docker.io/patrick204nqh/${{ env.REPO_NAME }}-frontend:latest
+          tags: ghcr.io/${{ github.actor }}/${{ env.REPO_NAME }}-frontend:latest
