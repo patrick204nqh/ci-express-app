@@ -1,7 +1,6 @@
 import React from "react";
 
 import Paper from '@mui/material/Paper';
-import Grid from '@mui/material/Grid';
 import Image from '../../assets/img/patrick.jpg';
 
 export default class Home extends React.Component{
