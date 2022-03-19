@@ -55,4 +55,4 @@ jobs:
           context: ./frontend
           file: ./frontend/Dockerfile
           push: ${{ github.event_name != 'pull_request' }}
-          tags: ghcr.io/${{ github.actor }}/${{ env.REPO_NAME }}-frontend:latest
+          tags: ${{ env.REPO_NAME }}-frontend:latest
