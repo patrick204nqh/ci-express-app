@@ -8,7 +8,6 @@ on:
     branches: [ develop ]
 
 env:
-  DOCKER_NAME: patrick204nqh
   REPO_NAME: ${{ github.repository }}
 
 jobs:
@@ -40,19 +39,19 @@ jobs:
           password: ${{ secrets.DOCKERHUB_TOKEN }}
 
       - name: Build and push Backend
-        id: build-and-push-backend
-        uses: docker/build-push-action@v2.10.0
+        id: build_backend
+        uses: docker/build-push-action@v2
         with:
-          context: ./backend
+          path: backend
+          dockerfile: backend/Dockerfile
           push: ${{ github.event_name != 'pull_request' }}
-          tags: ${{ env.DOCKER_NAME }}/${{ env.REPO_NAME }}-backend:latest
-          labels: 'Backend'
+          tags: patrick204nqh/${{ env.REPO_NAME }}-backend:latest
 
       - name: Build and push Frontend
-        id: build-and-push-frontend
-        uses: docker/build-push-action@v2.10.0
+        id: build_frontend
+        uses: docker/build-push-action@v2
         with:
-          context: ./frontend
+          path: frontend
+          dockerfile: backend/Dockerfile
           push: ${{ github.event_name != 'pull_request' }}
-          tags: ${{ env.DOCKER_NAME }}/${{ env.REPO_NAME }}-frontend:latest
-          labels: 'Frontend'
+          tags: patrick204nqh/${{ env.REPO_NAME }}-frontend:latest
