@@ -45,7 +45,7 @@ jobs:
           context: ./backend/
           file: ./backend/Dockerfile
           push: ${{ github.event_name != 'pull_request' }}
-          tags: patrick204nqh/${{ env.REPO_NAME }}-backend:latest
+          tags: docker.io/patrick204nqh/${{ env.REPO_NAME }}-backend:latest
 
       - name: Build and push Frontend
         id: build_frontend
@@ -54,4 +54,4 @@ jobs:
           context: ./frontend/
           file: ./frontend/Dockerfile
           push: ${{ github.event_name != 'pull_request' }}
-          tags: patrick204nqh/${{ env.REPO_NAME }}-frontend:latest
+          tags: docker.io/patrick204nqh/${{ env.REPO_NAME }}-frontend:latest
