@@ -42,8 +42,8 @@ jobs:
         id: build_backend
         uses: docker/build-push-action@v2
         with:
-          path: backend
-          dockerfile: backend/Dockerfile
+          context: ./backend/
+          file: ./backend/Dockerfile
           push: ${{ github.event_name != 'pull_request' }}
           tags: patrick204nqh/${{ env.REPO_NAME }}-backend:latest
 
@@ -51,7 +51,7 @@ jobs:
         id: build_frontend
         uses: docker/build-push-action@v2
         with:
-          path: frontend
-          dockerfile: backend/Dockerfile
+          context: ./frontend/
+          file: ./frontend/Dockerfile
           push: ${{ github.event_name != 'pull_request' }}
           tags: patrick204nqh/${{ env.REPO_NAME }}-frontend:latest
