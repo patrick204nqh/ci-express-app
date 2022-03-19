@@ -39,14 +39,32 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
+      - uses: docker/metadata-action@v3
+        id: meta_backend
+        with:
+          images: |
+            ghcr.io/${{ github.actor }}/${{ env.REPO_NAME }}-backend
+          tags: |
+            type=sha,prefix=,format=long
+            type=ref,prefix=,event=branch
+
       - name: Build and push Backend
         id: build_backend
         uses: docker/build-push-action@v2
         with:
           context: ./backend
           file: ./backend/Dockerfile
-          push: ${{ github.event_name != 'pull_request' }}
-          tags: ghcr.io/${{ github.actor }}/${{ env.REPO_NAME }}-backend:latest
+          tags: ${{ steps.meta_backend.outputs.tags }}
+          labels: ${{ steps.meta_backend.outputs.labels }}
+
+      - uses: docker/metadata-action@v3
+        id: meta_frontend
+        with:
+          images: |
+            ghcr.io/${{ github.actor }}/${{ env.REPO_NAME }}-frontend
+          tags: |
+            type=sha,prefix=,format=long
+            type=ref,prefix=,event=branch
 
       - name: Build and push Frontend
         id: build_frontend
@@ -55,4 +73,5 @@ jobs:
           context: ./frontend
           file: ./frontend/Dockerfile
           push: ${{ github.event_name != 'pull_request' }}
-          tags: ${{ env.REPO_NAME }}-frontend:latest
+          tags: ${{ steps.meta_frontend.outputs.tags }}
+          labels: ${{ steps.meta_frontend.outputs.labels }}
