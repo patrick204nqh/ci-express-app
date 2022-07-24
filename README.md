@@ -16,5 +16,9 @@ docker-compose up -d
 #### Deployment notes
 - Heroky setup
 ```
+# Heroku cli
 curl https://cli-assets.heroku.com/install.sh | sh
+
+# Set the stack of app
+heroku stack:set container --app ci-express-ap
 ```
